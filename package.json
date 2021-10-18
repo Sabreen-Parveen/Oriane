@@ -1,0 +1,22 @@
+{
+  "name": "oriane",
+  "version": "1.0.0",
+  "description": "An automatic website testing tool",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sabreen-Parveen/Oriane.git"
+  },
+  "author": "Sabreen Parveen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sabreen-Parveen/Oriane/issues"
+  },
+  "homepage": "https://github.com/Sabreen-Parveen/Oriane#readme",
+  "devDependencies": {
+    "express": "^4.17.1"
+  }
+}
