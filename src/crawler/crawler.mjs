@@ -34,7 +34,7 @@ export default class Crawler {
 
   async crawl() {
     const { domain, depth = 5, logger } = this[OPTIONS];
-
+    console.log(domain);
     // Validate url and throw error if invalid, else add to unique set
     const firstUrl = `http://${domain}`;
     if (domain == undefined) {
@@ -78,7 +78,7 @@ export default class Crawler {
   }
 }
 
-const batchParseLinks = (linkedContent) => {
+function batchParseLinks(linkedContent) {
   const { domain } = this[OPTIONS];
   return linkedContent
     .filter((content) => {
@@ -91,10 +91,9 @@ const batchParseLinks = (linkedContent) => {
       return this[QUEUE_LINKS](domain, newPage);
     })
     .reduce(combineLinkSets, new Set());
-};
+}
 
 const batchGetContent = async (links) => {
-  const { logger } = this[OPTIONS];
   console.log(`batchGetContent: ${links}`);
   const content = [];
   await [...links].reduce(
@@ -112,7 +111,7 @@ const batchGetContent = async (links) => {
   return content;
 };
 
-const getHref = (currentURL, links) => {
+function getHref(currentURL, links) {
   console.log("currentURL: ", currentURL);
   const currentDomain = currentURL.replace(
     new RegExp("^(https?://(\\w+\\.?)+)/(.*)$"),
@@ -134,9 +133,9 @@ const getHref = (currentURL, links) => {
     }
     return null;
   };
-};
+}
 
-const queueLinks = (domain, pageContent) => {
+function queueLinks(domain, pageContent) {
   //this function looks for links in the given page passed by getBatchContent
   if (pageContent === undefined) {
     return new Set();
@@ -156,9 +155,9 @@ const queueLinks = (domain, pageContent) => {
     );
   }
   return new Set(); //when status is not 200
-};
+}
 
-const combineLinkSets = (urlList, urlSet) => {
+function combineLinkSets(urlList, urlSet) {
   //urlSet is an empty set
   // console.log(urlList);
   if (urlList instanceof Set) {
@@ -169,4 +168,4 @@ const combineLinkSets = (urlList, urlSet) => {
     return urlSet;
   }
   return urlSet;
-};
+}
