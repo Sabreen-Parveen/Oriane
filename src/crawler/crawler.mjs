@@ -78,7 +78,7 @@ export default class Crawler {
   }
 }
 
-batchParseLinks = (linkedContent) => {
+const batchParseLinks = (linkedContent) => {
   const { domain } = this[OPTIONS];
   return linkedContent
     .filter((content) => {
@@ -93,7 +93,7 @@ batchParseLinks = (linkedContent) => {
     .reduce(combineLinkSets, new Set());
 };
 
-batchGetContent = async (links) => {
+const batchGetContent = async (links) => {
   const { logger } = this[OPTIONS];
   console.log(`batchGetContent: ${links}`);
   const content = [];
@@ -112,7 +112,7 @@ batchGetContent = async (links) => {
   return content;
 };
 
-getHref = (currentURL, links) => {
+const getHref = (currentURL, links) => {
   console.log("currentURL: ", currentURL);
   const currentDomain = currentURL.replace(
     new RegExp("^(https?://(\\w+\\.?)+)/(.*)$"),
@@ -136,7 +136,7 @@ getHref = (currentURL, links) => {
   };
 };
 
-queueLinks = (domain, pageContent) => {
+const queueLinks = (domain, pageContent) => {
   //this function looks for links in the given page passed by getBatchContent
   if (pageContent === undefined) {
     return new Set();
@@ -158,7 +158,7 @@ queueLinks = (domain, pageContent) => {
   return new Set(); //when status is not 200
 };
 
-combineLinkSets = (urlList, urlSet) => {
+const combineLinkSets = (urlList, urlSet) => {
   //urlSet is an empty set
   // console.log(urlList);
   if (urlList instanceof Set) {
