@@ -1,0 +1,47 @@
+#!/usr/bin/env node
+"use strict";
+const meow = require("meow");
+const chalk = require("chalk");
+const orianePageSpeedChecker = require("./cli");
+const { testA11y } = require("./src/a11y/test_runner");
+const cli = meow(`
+  Usage
+    $ oriane <test_type> <url>
+
+  Test Type
+    a11y     accessibility test
+
+  For performance test simply use
+    $ osr <url>
+
+  For more details see
+    $ osr --help
+
+  Example
+    $ oriane a11y https://example.com
+`);
+
+if (!cli.input[0] && !cli.input[1]) {
+  console.log(chalk.green("Usage: oriane <test_type> <URL>"));
+  console.log(
+    chalk.blue(
+      "Test Type:\n a11y\t accessibility test\n\nFor performance test simply use\n\t$ osr\nFor more details see\n\t$ osr --help"
+    )
+  );
+  process.exit(1);
+}
+
+if (!cli.input[1]) {
+  console.error("Specify a url");
+  console.log(chalk.green("Usage: oriane <test_type> <URL>"));
+  console.log(
+    chalk.blue(
+      "Test Type:\n a11y\t accessibility test\n\nFor performance test simply use\n\t$ osr\nFor more details see\n\t$ osr --help"
+    )
+  );
+  process.exit(1);
+}
+
+if (cli.input[0] === "a11y") {
+  testA11y(cli.input[1]);
+}
